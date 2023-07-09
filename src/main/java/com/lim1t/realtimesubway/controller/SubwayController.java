@@ -16,13 +16,13 @@ public class SubwayController {
 
     /**
      * API 정보 요청
-     * @example 1호선 정보 요청 : http://localhost:8080/get?startIdx=0&endIdx=99&subwayNumber=1
+     * @example 1호선 정보 요청 : http://localhost:8080/rawjson?startIdx=0&endIdx=99&subwayNumber=1
      * @param startIdx
      * @param endIdx
      * @param subwayNumber
      * @return Mono<SubwayInfoResponse>
      */
-    @GetMapping("/get")
+    @GetMapping("/rawjson")
     public Mono<SubwayInfoResponse> requestInfo(
             @RequestParam int startIdx,
             @RequestParam int endIdx,

@@ -5,7 +5,10 @@ import lombok.*;
 import java.util.List;
 
 public class SubwayInfoDto {
-
+    
+    /**
+     * Raw Json Response
+     */
     @Getter
     @Setter
     public static class SubwayInfoResponse {
@@ -13,6 +16,9 @@ public class SubwayInfoDto {
         private List<RealtimePosition> realtimePositionList;
     }
 
+    /**
+     * Raw Json Response
+     */
     @Getter
     @Setter
     public static class ErrorMessage {
@@ -24,6 +30,9 @@ public class SubwayInfoDto {
         private int total;
     }
 
+    /**
+     * Raw Json Response
+     */
     @Getter
     @Setter
     public static class RealtimePosition {
