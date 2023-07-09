@@ -25,7 +25,7 @@ public class SubwayController {
      */
     @GetMapping("/station")
     public Flux<StationInfo> parsingStationInfo(@RequestParam int subwayNumber) {
-        return subwayServiceImpl.parsingIdWithName(subwayNumber);
+        return subwayServiceImpl.getTrainInfoByStation(subwayNumber);
     }
 
     /**

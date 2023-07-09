@@ -25,7 +25,7 @@ public class SubwayServiceImpl implements SubwayService {
     private final WebClient webClient;
 
     @Override
-    public Flux<StationInfo> parsingIdWithName(int subwayNumber) {
+    public Flux<StationInfo> getTrainInfoByStation(int subwayNumber) {
         return findAllInfo(0, 300, subwayNumber)
                 .map(subwayInfoResponse -> {
                     List<SubwayInfoDto.RealtimePosition> realtimePositionList = subwayInfoResponse.getRealtimePositionList();

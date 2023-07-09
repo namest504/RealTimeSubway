@@ -10,7 +10,7 @@ public interface SubwayService {
     /**
      * 전체 구역의 운행중인 지하철 역 기준 전체 상태 조회
      */
-    Flux<StationInfo> parsingIdWithName(int subwayNumber);
+    Flux<StationInfo> getTrainInfoByStation(int subwayNumber);
 
     /**
      * 특정 구역의 운행중인 지하철 목록 전체 조회
