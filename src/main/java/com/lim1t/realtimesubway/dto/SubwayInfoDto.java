@@ -5,7 +5,22 @@ import lombok.*;
 import java.util.List;
 
 public class SubwayInfoDto {
-    
+
+    /**
+     * 역 기준 지하철 상태 응답
+     */
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class StationInfo {
+        private int stationId;
+        private String stationName;
+        private String updnLine;
+        private String trainSttus;
+
+    }
+
     /**
      * Raw Json Response
      */
