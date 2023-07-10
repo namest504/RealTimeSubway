@@ -26,8 +26,9 @@ public class SubwayServiceImpl implements SubwayService {
 
     @Override
     public Flux<StationInfo> getTrainInfoByStation(int subwayNumber) {
+        log.info("getTrainInfoByStation 실행");
         return findAllInfo(0, 300, subwayNumber)
-                .map(subwayInfoResponse -> {
+                .flatMapMany(subwayInfoResponse -> {
                     List<SubwayInfoDto.RealtimePosition> realtimePositionList = subwayInfoResponse.getRealtimePositionList();
                     List<StationInfo> stationInfoList = new ArrayList<>();
 
@@ -38,14 +39,13 @@ public class SubwayServiceImpl implements SubwayService {
                         String stationStatus = position.getTrainSttus();
                         stationInfoList.add(new StationInfo(stationId, stationName, stationLine, stationStatus));
                     }
-                    /*
-                    todo: 중복 제거 및 정렬 필요한지 실제 데이터 비교후 확인 필요
-                    List<StationInfo> collect = stationInfoList.stream().distinct().collect(Collectors.toList());
-                    Collections.sort(collect, (StationInfo o1, StationInfo o2) -> o1.getStationId() - o2.getStationId());
-                    */
-                    return stationInfoList;
-                })
-                .flatMapMany(Flux::fromIterable);
+                /*
+                todo: 중복 제거 및 정렬 필요한지 실제 데이터 비교후 확인 필요
+                List<StationInfo> collect = stationInfoList.stream().distinct().collect(Collectors.toList());
+                Collections.sort(collect, (StationInfo o1, StationInfo o2) -> o1.getStationId() - o2.getStationId());
+                */
+                    return Flux.fromIterable(stationInfoList);
+                });
     }
 
     @Override
