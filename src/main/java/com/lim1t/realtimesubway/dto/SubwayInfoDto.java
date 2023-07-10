@@ -14,11 +14,15 @@ public class SubwayInfoDto {
     @NoArgsConstructor
     @Getter
     public static class StationInfo {
-        private int stationId;
+        private String stationId;
         private String stationName;
+        private String trainNo;
         private String updnLine;
-        private String trainSttus;
-
+        private String trainStatus;
+        private String stationTerminerId;
+        private String stationTerminerName;
+        private String directAt;
+        private String lstcarAt;
     }
 
     /**
