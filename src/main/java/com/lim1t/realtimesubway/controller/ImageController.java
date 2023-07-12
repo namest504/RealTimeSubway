@@ -31,7 +31,7 @@ public class ImageController {
      * @example http://localhost:8080/images/line/1%ED%98%B8%EC%84%A0.png
      */
     @GetMapping("/images/{imageType}/{imageName}")
-    public Mono<ResponseEntity<Flux<DataBuffer>>> getImage(
+    public Mono<ResponseEntity<DataBuffer>> getImage(
             @PathVariable String imageType,
             @PathVariable String imageName) {
 
@@ -50,10 +50,8 @@ public class ImageController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(mediaType);
 
-        Flux<DataBuffer> bufferFlux = imageService.loadImage(imageType, imageName);
-        return bufferFlux.collectList()
-                .filter(list -> !list.isEmpty())
-                .map(list -> ResponseEntity.ok().headers(headers).body(Flux.fromIterable(list)))
+        Mono<DataBuffer> dataBufferMono = imageService.loadImage(imageType, imageName).reduce(DataBuffer::write);
+        return dataBufferMono.map(dataBuffer -> ResponseEntity.ok().headers(headers).body(dataBuffer))
                 .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 }
