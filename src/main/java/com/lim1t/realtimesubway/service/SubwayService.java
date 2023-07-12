@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 public interface SubwayService {
 
     /**
-     * 전체 구역의 운행중인 지하철 역 기준 전체 상태 조회
+     * 전체 구역의 운행중인 지하철 기준 전체 상태 조회
      */
     Flux<StationInfo> getTrainInfoByStation(int subwayNumber);
 
