@@ -18,7 +18,7 @@ public class SubwayController {
 
 
     /**
-     * 실시간 지하철 역 기준 상행선&하행선 상태 데이터
+     * 실시간 지하철 기준 상행선&하행선 상태 데이터
      *
      * @param subwayNumber
      * @return Flux<StationInfo>
