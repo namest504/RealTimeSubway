@@ -1,5 +1,6 @@
 package com.lim1t.realtimesubway.service;
 
+import com.lim1t.realtimesubway.dto.StationInfoDto.StationInfoResponse;
 import com.lim1t.realtimesubway.dto.SubwayInfoDto;
 import com.lim1t.realtimesubway.dto.SubwayInfoDto.StationInfo;
 import com.lim1t.realtimesubway.dto.SubwayInfoDto.SubwayInfoResponse;
@@ -23,6 +24,15 @@ public class SubwayServiceImpl implements SubwayService {
     private String SUBWAY_POSITION_API_KEY;
 
     private final WebClient webClient;
+
+    @Override
+    public Mono<StationInfoResponse> findStationArrivalInfo(String subwayName) {
+        log.info("findStationArrivalInfo 실행");
+        return webClient.get()
+                .uri("http://swopenAPI.seoul.go.kr/api/subway/" + SUBWAY_POSITION_API_KEY + "/json/realtimeStationArrival/0/5/" + subwayName)
+                .retrieve()
+                .bodyToMono(StationInfoResponse.class);
+    }
 
     @Override
     public Flux<StationInfo> getTrainInfoByStation(int subwayNumber) {
