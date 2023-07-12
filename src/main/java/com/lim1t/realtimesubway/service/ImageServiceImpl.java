@@ -15,14 +15,16 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Flux<DataBuffer> loadImage(String imageType, String imageName) {
         log.info("{}", imageName);
-        try {
-            ClassPathResource imageResource = new ClassPathResource("static/images/" + imageType + "/" + imageName);
-            return DataBufferUtils.read(
-                    imageResource,
-                    new DefaultDataBufferFactory(),
-                    4096);
-        } catch (Exception e) {
+        ClassPathResource imageResource = new ClassPathResource("static/images/" + imageType + "/" + imageName);
+
+        if (!imageResource.exists()) {
+            log.warn("파일을 찾을 수 없음");
             return Flux.empty();
         }
+
+        return DataBufferUtils.read(
+                imageResource,
+                new DefaultDataBufferFactory(),
+                4096);
     }
 }
