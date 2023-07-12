@@ -37,3 +37,7 @@ out/
 .vscode/
 /src/main/resources/application.properties
 /src/main/resources/application.yml
+/src/main/resources/images/
+/src/main/resources/static/
+/src/main/resources/spring.log
+/src/main/resources/spring.log.**
