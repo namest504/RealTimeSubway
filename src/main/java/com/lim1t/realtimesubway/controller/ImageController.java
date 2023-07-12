@@ -29,7 +29,10 @@ public class ImageController {
      * @example http://localhost:8080/images/line/1%ED%98%B8%EC%84%A0.png
      */
     @GetMapping("/images/{imageType}/{imageName}")
-    public ResponseEntity<Flux<DataBuffer>> getImage(@PathVariable String imageType, @PathVariable String imageName) {
+    public ResponseEntity<Flux<DataBuffer>> getImage(
+            @PathVariable String imageType,
+            @PathVariable String imageName) {
+
         MediaType mediaType;
 
         if (imageName.toLowerCase().endsWith(".png")) {

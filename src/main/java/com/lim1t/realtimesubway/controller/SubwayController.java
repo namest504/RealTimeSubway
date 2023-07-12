@@ -4,6 +4,9 @@ import com.lim1t.realtimesubway.dto.SubwayInfoDto.StationInfo;
 import com.lim1t.realtimesubway.dto.SubwayInfoDto.SubwayInfoResponse;
 import com.lim1t.realtimesubway.service.SubwayServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +27,10 @@ public class SubwayController {
      * @return Flux<StationInfo>
      */
     @GetMapping("/station")
-    public Flux<StationInfo> parsingStationInfo(@RequestParam int subwayNumber) {
-        return subwayServiceImpl.getTrainInfoByStation(subwayNumber);
+    public ResponseEntity<Flux<StationInfo>> parsingStationInfo(@RequestParam int subwayNumber) {
+
+        Flux<StationInfo> trainInfoByStation = subwayServiceImpl.getTrainInfoByStation(subwayNumber);
+        return ResponseEntity.ok().body(trainInfoByStation);
     }
 
     /**
@@ -38,11 +43,12 @@ public class SubwayController {
      * @example 1호선 정보 요청 : http://localhost:8080/rawjson?startIdx=0&endIdx=99&subwayNumber=1
      */
     @GetMapping("/rawjson")
-    public Mono<SubwayInfoResponse> requestInfo(
+    public ResponseEntity<Mono<SubwayInfoResponse>> requestInfo(
             @RequestParam int startIdx,
             @RequestParam int endIdx,
             @RequestParam int subwayNumber
     ) {
-        return subwayServiceImpl.findAllInfo(startIdx, endIdx, subwayNumber);
+        Mono<SubwayInfoResponse> allInfo = subwayServiceImpl.findAllInfo(startIdx, endIdx, subwayNumber);
+        return ResponseEntity.ok().body(allInfo);
     }
 }
